@@ -1,6 +1,16 @@
 from fastapi import FastAPI
 from app.schemas.test import Student
+from app.models.dataConfig import Base
+from app.database.connection import engine
+from app.models import tables  # noqa: F401
+
 app = FastAPI()
+# create the table
+
+Base.metadata.create_all(bind=engine)
+
+# # include routers
+# app.include_router(auth.router)
 
 @app.get("/")
 def read_root():
